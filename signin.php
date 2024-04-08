@@ -24,8 +24,8 @@
                     <td><input type="password" name="password"><box-icon name='lock-alt' ></box-icon></td>
                 </tr>
             </table>
+            <input type="submit" name="submit" value="Sign In" class="input">
         </form>
-        <input type="submit" name="submit" value="Sign In" class="input">
         <p>Don't have an account? <a class="link" href="validatesignup.php">Sign up now!</a></p> 
     </div>
 </body>
