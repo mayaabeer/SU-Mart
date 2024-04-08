@@ -59,6 +59,11 @@
                     <td>Phone Number:</td>
                     <td><input type="text" name="phone_no" size="20"></td>
                 </tr>
+                
+                <tr><td>User Type:</td><td><select name="type">
+                <option value="buyer">Buyer</option>
+                <option value="seller">Seller</option>
+            </select></td></tr>
                 <tr>
                     <td colspan="2" style="align: right">
                     <input type="reset" value="Clear all" class="input">
