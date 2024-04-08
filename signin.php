@@ -25,7 +25,7 @@
                 </tr>
             </table>
         </form>
-        <input type="submit" name="submit" value="Login" class="input">
+        <input type="submit" name="submit" value="Sign In" class="input">
         <p>Don't have an account? <a class="link" href="validatesignup.php">Sign up now!</a></p> 
     </div>
 </body>
