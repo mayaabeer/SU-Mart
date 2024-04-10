@@ -42,7 +42,7 @@
                     <a href="user.php">
                         <i class='bx bx-user'></i>
                         <script src="node_modules/boxicons/dist/boxicons.js"></script>
-                        <?php
+                        <!-- <?php
                             if (session_status() == PHP_SESSION_NONE) {
                                 session_start();
                             }
@@ -54,7 +54,7 @@
                                 echo "<a href=\"validatesignup.php\">Signup</a>";
                             }
                             //make the user icon direct to profile page is session is logged in, logout from profile page
-                        ?> 
+                        ?> -->
                     </a>
                     </div>
                 </div>
@@ -86,11 +86,11 @@
                     </ul>
                 </li>
                 <li><a href="itemlist.php?category=Tickets">Event Tickets</a></li>
-                <?php
+                <!--<?php
                 if (isset($_SESSION['type']) && $_SESSION['type'] == 'seller') {
                     echo '<li><a href="addproduct.php">Add Product</a></li>';
                 }
-                ?>
+                ?>-->
             </ul>
         </nav>
         </div>
