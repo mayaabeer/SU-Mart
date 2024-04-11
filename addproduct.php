@@ -8,8 +8,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Product</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="media/css/boxicons.min.css" rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="content">
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
         <label for="item_code">Item Code:</label>
         <input type="text" id="item_code" name="item_code" required><br><br>
@@ -50,7 +54,7 @@
         <input type="number" id="price" name="price" step="0.01" required><br><br>
 
         <label for="image">Upload Image:</label>
-        <input type="file" id="image" name="image" accept="image/jpeg, image/png" required><br><br>
+        <input type="file" id="image" name="image" accept="image/jpeg, image/png" required style="background-color: white; border: 2px solid #0F044C; "><br><br>
 
         <label for="feature1">Feature 1:</label>
         <input type="text" id="feature1" name="feature1"><br><br>
@@ -70,8 +74,9 @@
         <label for="feature6">Feature 6:</label>
         <input type="text" id="feature6" name="feature6"><br><br>
 
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" class="input">
     </form>
+</div>
 
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {

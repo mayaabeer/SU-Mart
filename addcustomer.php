@@ -21,9 +21,9 @@ $state = $_POST['state'];
 $country = $_POST['country'];
 $zipcode = $_POST['zipcode'];
 $phone_no = $_POST['phone_no'];
-$type = $_POST['type'];
+$type = $_POST['usertype'];
 
-$sql = "INSERT INTO customers (email_address, password, complete_name, address_line1, address_line2, city, state, zipcode, country, cellphone_no) VALUES ('$email_address', (PASSWORD('$password')), '$completename', '$address1', '$address2', '$city', '$state', '$zipcode', '$country', '$phone_no', '$type')";
+$sql = "INSERT INTO customers (email_address, password, complete_name, address_line1, address_line2, city, state, zipcode, country, cellphone_no, type) VALUES ('$email_address', (PASSWORD('$password')), '$completename', '$address1', '$address2', '$city', '$state', '$zipcode', '$country', '$phone_no', '$type')";
 $result = mysqli_query($conn, $sql) or die(mysql_error());
 
 if ($result)

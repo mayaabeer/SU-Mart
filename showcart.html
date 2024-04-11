@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="cartstyle.css">
+</head>
+<body>
+    <div class="cart-container">
+        <div class="cart-item">
+            <img src="media/lanyard.jpg" alt="Product Image">
+            <div class="cart-item-info">
+                <h2>Lanyard</h2>
+                <p>ABC123</p>
+                <form method="POST" action="cart.php?action=change&icode=XYZ123">
+                    <input type="number" name="modified_quantity">
+                    <input type="submit" name="Submit" value="Change quantity">
+                </form>
+            </div>
+
+            <div class="cart-item-info"></div>
+                <form method="POST" action="cart.php?action=delete&icode=XYZ123">
+                    <button type="submit" name="Submit" class="delete-button">
+                        <i class='bx bx-x-circle'></i>
+                    </button>
+                </form>
+                
+                <h2 class="price">Rp25.000</h2>
+            </div>
+        </div>
+        <!-- Repeat the structure for each item -->
+    </div>
+</body>
+</html>

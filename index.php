@@ -33,5 +33,8 @@
             </a>
         </div>
     </div>
+    <?php
+        include('itemlist.php');
+    ?>
 </body>
 </html>
