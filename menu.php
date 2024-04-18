@@ -39,57 +39,29 @@
                 </a>
                 </div>
                 <div class="user-icon">
-                    <?php
+                    <a href="user.php">
+                        <i class='bx bx-user'></i>
+                        <script src="node_modules/boxicons/dist/boxicons.js"></script>
+                        <?php
                             if (session_status() == PHP_SESSION_NONE) {
                                 session_start();
                             }
                             if (isset($_SESSION['emailaddress'])) {
-                                echo "<a href=\"user.php\"><i class='bx bx-user'></i></a>";
-                                //echo "Welcome " . $_SESSION['complete_name'] .  "&nbsp;&nbsp;&nbsp;";
-                                //echo "<a href=\"logout.php\">Log Out</a>";
+                                echo "Welcome " . $_SESSION['complete_name'] .  "&nbsp;&nbsp;&nbsp;";
+                                echo "<a href=\"logout.php\">Log Out</a>";
                             } else {
-                                echo "<a href=\"signin.php\"><i class='bx bx-user'></i></a>";
-                                
+                                echo "<a href=\"signin.php\">Login</a>&nbsp;&nbsp;&nbsp;";
+                                echo "<a href=\"validatesignup.php\">Signup</a>";
                             }
                             //make the user icon direct to profile page is session is logged in, logout from profile page
-                        ?>
-                    <!--<a href="user.php">
-                        <i class='bx bx-user'></i>
-                        -->
+                        ?> 
+                    </a>
+                    </div>
                 </div>
             </div>
         </div>
-        
         <div class="header-bottom">
         <nav>
-            <!--
-            <menu class="nav">
-                <menuitem><a href="index.php">Home</a></menuitem>
-                <menuitem>
-                    <a href="itemlist.php?category=OfficialMerch,StudentMerch">Merchandise</a>
-                    <menu>
-                        <menuitem><a href="itemlist.php?category=OfficialMerch">Official SU Merch</a></menuitem>
-                        <menuitem><a href="itemlist.php?category=StudentMerch">Student/BEM Merch</a></menuitem>
-                    </menu>
-                </menuitem>
-                <menuitem>
-                    <a href="itemlist.php?category=Food,Drinks">Food Items</a>
-                    <menu>
-                        <menuitem><a href="itemlist.php?category=Food">Food</a></menuitem>
-                        <menuitem><a href="itemlist.php?category=Drinks">Drinks</a></menuitem>
-                    </menu>
-                </menuitem>
-                <menuitem>
-                    <a href="itemlist.php?category=Stationery,Books">Study Essentials</a>
-                    <menu>
-                        <menuitem><a href="itemlist.php?category=Stationery">Stationery</a></menuitem>
-                        <menuitem><a href="itemlist.php?category=Books">Books</a></menuitem>
-                    </menu>
-                </menuitem>
-                <menuitem><a href="itemlist.php?category=Tickets">Event Tickets</a></menuitem>
-            </menu>
-            -->
-            
             <ul class="nav">
                 <li><a href="index.php">Home</a></li>
                 <li class="dropdown">
@@ -114,13 +86,12 @@
                     </ul>
                 </li>
                 <li><a href="itemlist.php?category=Tickets">Event Tickets</a></li>
-                
-                
                 <?php
                 if (isset($_SESSION['type']) && $_SESSION['type'] == 'seller') {
                     echo '<li><a href="addproduct.php">Add Product</a></li>';
                 }
                 ?>
+            </ul>
         </nav>
         </div>
     </header>
