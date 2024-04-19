@@ -50,7 +50,7 @@ $sql = "INSERT INTO customers (email_address, password, complete_name, address_l
 $result = mysqli_query($conn, $sql);
 
 if ($result) {
-    header("Location: signin.php");
+    header("Location: validatesignup.php?success=signup_successful");
     exit;
 } else {
     header("Location: validatesignup.php?error=registration_failed");
@@ -58,4 +58,6 @@ if ($result) {
 }
 
 $conn->close();
+?>
+
 ?>

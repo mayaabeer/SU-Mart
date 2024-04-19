@@ -1,5 +1,18 @@
 <html>
 <head>
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-evenly;
+            text-align: center;
+        }
+        .error {
+            color: #a71010;
+            margin-top: 100px;
+            justify: center;
+        }
+    </style>
+</head>
     
 <script language="JavaScript" type="text/JavaScript">
 function updateUser(username) {
@@ -40,11 +53,13 @@ if (mysqli_num_rows($result) == 1) {
 }
 else {
 ?>
+<div class="container">
 <p class="error">Invalid Email address and/or Password<br>
-Not registered? <a href="validatesignup.php">Click here</a> to register.<br><br><br>
+Don't have an account? <a href="validatesignup.php" class="link">Click here</a> to register.<br><br><br>
 Want to try again?<br>
-<a href="signin.php">Click here</a> to try login again.<br>
+<a href="signin.php" class="link">Click here</a> to try again. <br>
 </p>
+</div>
 <?php
 }
 ?>

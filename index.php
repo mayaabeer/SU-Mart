@@ -9,29 +9,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <?php include('menu.php'); ?>
-
-    <div id="crossfade-container">
-        <div class="crossfade">
-            <a href="itemlist.php?category=Books">
-                <img class="bottom" src="img/nyarlathotep.jpg" style="max-width:350px;max-height:350px;width:auto;height:auto;" />
-                <img class="top" src="img/azathoth.jpg" style="max-width:350px;max-height:350px;width:auto;height:auto;" />
-            </a>
-        </div>
-
-        <div class="crossfade">
-            <a href="itemlist.php?category=Drinks">
-                <img class="bottom" src="img/matchalatte.png" style="max-width:350px;max-height:350px;width:auto;height:auto;" />
-                <img class="top" src="img/milkcoffee.jpg" style="max-width:350px;max-height:350px;width:auto;height:auto;" />
-            </a>
-        </div>
-
-        <div class="crossfade">
-            <a href="itemlist.php?category=OfficialMerch">
-                <img class="bottom" src="img/sampoernahoodie.png" style="max-width:350px;max-height:350px;width:auto;height:auto;" />
-                <img class="top" src="img/sampoernapins.png" style="max-width:350px;max-height:350px;width:auto;height:auto;" />
-            </a>
-        </div>
-    </div>
+    <?php
+        include('allitemslist.php');
+    ?>
 </body>
 </html>

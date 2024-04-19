@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -6,9 +6,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="media/css/boxicons.min.css" rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
-    <header>
+    <div class="navbar" id="navbar">
         <div class="header-top">
             <div class="header-left">
                 <img src="media/SU-Mart_logo.png" alt="SU-Mart Icon">
@@ -59,9 +60,37 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="header-bottom">
-        <nav>
+        
+       
+        
+            <!--
+            <menu class="nav">
+                <menuitem><a href="index.php">Home</a></menuitem>
+                <menuitem>
+                    <a href="itemlist.php?category=OfficialMerch,StudentMerch">Merchandise</a>
+                    <menu>
+                        <menuitem><a href="itemlist.php?category=OfficialMerch">Official SU Merch</a></menuitem>
+                        <menuitem><a href="itemlist.php?category=StudentMerch">Student/BEM Merch</a></menuitem>
+                    </menu>
+                </menuitem>
+                <menuitem>
+                    <a href="itemlist.php?category=Food,Drinks">Food Items</a>
+                    <menu>
+                        <menuitem><a href="itemlist.php?category=Food">Food</a></menuitem>
+                        <menuitem><a href="itemlist.php?category=Drinks">Drinks</a></menuitem>
+                    </menu>
+                </menuitem>
+                <menuitem>
+                    <a href="itemlist.php?category=Stationery,Books">Study Essentials</a>
+                    <menu>
+                        <menuitem><a href="itemlist.php?category=Stationery">Stationery</a></menuitem>
+                        <menuitem><a href="itemlist.php?category=Books">Books</a></menuitem>
+                    </menu>
+                </menuitem>
+                <menuitem><a href="itemlist.php?category=Tickets">Event Tickets</a></menuitem>
+            </menu>
+            -->
+            
             <ul class="nav">
                 <li><a href="index.php">Home</a></li>
                 <li class="dropdown">
@@ -86,14 +115,102 @@
                     </ul>
                 </li>
                 <li><a href="itemlist.php?category=Tickets">Event Tickets</a></li>
+                
+                
                 <!--<?php
                 if (isset($_SESSION['type']) && $_SESSION['type'] == 'seller') {
                     echo '<li><a href="addproduct.php">Add Product</a></li>';
                 }
                 ?>-->
-            </ul>
-        </nav>
+        
+        
+        <script>
+            var prevScrollpos = window.pageYOffset;
+            window.onscroll = function() {
+            var currentScrollPos = window.pageYOffset;
+              if (prevScrollpos > currentScrollPos) {
+                document.getElementById("navbar").style.top = "0";
+              } else {
+                document.getElementById("navbar").style.top = "-100px";
+              }
+              prevScrollpos = currentScrollPos;
+            }
+    </script>
+    </div>
+    <div class="item-details-container">
+        <div class="item-image">
+            <img src="media/lanyard.jpg" alt="Product Image">
+            <?php
+                echo '<img src="img/' . $imagename . '" alt="Product Image">';
+            ?>
         </div>
-    </header>
+        <div class="item-info">
+            <h2>
+                Lanyard
+                <?php
+                    echo $item_name;
+                ?>
+            </h2>
+            <div class="description">
+                <p><b>Description:</b></p>
+                <p>
+                    product description
+                </p>
+                <?php
+                    echo $itemdescription;
+                ?>
+            </div>
+            <div class="features">
+                <span class="feature">
+                    feature
+                    <?php
+                        echo $feature1;
+                    ?>
+                </span>
+                <span class="feature">
+                    feature
+                    <?php
+                        echo $feature2;
+                    ?>
+                </span>
+                <span class="feature">
+                    feature
+                    <?php
+                        echo $feature3;
+                    ?>
+                </span>
+                <span class="feature">
+                    feature
+                    <?php
+                        echo $feature4;
+                    ?>
+                </span>
+                <span class="feature">
+                    <?php
+                        echo $feature5;
+                    ?>
+                </span>
+                <span class="feature">
+                    <?php
+                        echo $feature6;
+                    ?>
+                </span>
+            </div>
+            <div class="add-to-cart">
+                <form method="POST" action="cart.php?action=add&icode=<?php echo $item_code; ?>&iname=<?php echo $itemname; ?>&iprice=<?php echo $itemprice; ?>">
+                    <div class="quantityselector">
+                        <span class="minus"><i class='bx bx-minus' ></i></span>
+                        <span class="num">1<?php echo $cart_quantity; ?></span>
+                        <span class="plus"><i class='bx bx-plus'></i></span>
+                    </div>
+                    <span class="price">
+                        <h2>Price: Rp25.000<?php echo $itemprice; ?></h2>
+                    </span>
+                    <input type="submit" name="buynow" value="Buy Now" class="buy-now">
+                    <input type="submit" name="addtocart" value="Add To Cart" class="add-to-cart-button">
+                </form>
+            </div>
+            
+        </div>
 </body>
 </html>

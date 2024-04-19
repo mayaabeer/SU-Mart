@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 
 <?php
 
@@ -22,7 +21,6 @@ if (isset($_GET['error'])) {
 
 
 ?>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,7 +34,7 @@ if (isset($_GET['error'])) {
     <script language="JavaScript" type="text/JavaScript" src="checkform.js"></script>
 </head>
 <body>
-    <div class="container_signup" style="width: 90vw; height: 82vh;">
+    <div class="container_signup" style="width: 90vw; height: 82vh;>
         <form action="addcustomer.php" method="post" onsubmit="return validate(this);">
             <img class="logo" src="media/SU-Mart_logo.png" alt="SU-Mart Logo">
             <h2>Enter your personal information</h2>

@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SU-Mart Login</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .error {
+        color: #a71010; 
+        }
+    </style>
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
@@ -12,6 +19,12 @@
     <div class="container_signin">
         <img class="logo" src="media/SU-Mart_logo.png" alt="SU-Mart Logo">
         <h2>sign in to your account</h2>
+
+        <?php
+        if (isset($_GET['error'])) {
+            echo "<p class='error'>" . $_GET['error'] . "</p>";
+        }
+        ?>
 
         <form action="validateuser.php" method="post">
             <table border="0" cellspacing="1" cellpadding="3">

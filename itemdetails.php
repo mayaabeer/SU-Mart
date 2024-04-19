@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <?php
 include('menu.php');
 $servername = "localhost";
@@ -10,43 +12,133 @@ $database = "shopping";
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
- $code=$_REQUEST['itemcode'];
- $query = "SELECT item_code, item_name, description, imagename, price FROM products " . "where item_code like '$code'";
- $results = mysqli_query($conn, $query) or die(mysql_error());
- $row = mysqli_fetch_array($results, MYSQLI_ASSOC);
- extract($row);
- echo "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"5\">";
- echo "<tr><td style=\"padding: 3px;\" rowspan=\"6\">";
- echo '<img src=img/' . $imagename . ' style="max-width:200px;max-height:260px; width:auto;height:auto;"></img></td>';
- echo "<td colspan=\"2\" align=\"left\" style=\"font-family:verdana; font-size:150%;\"><b>";
- echo $item_name;
- echo "</b></td></tr><tr><td colspan=\"2\"><table><tr><td>";
- $itemname=urlencode($item_name);
- $itemprice=$price;
- $itemdescription=$description;
- $pfquery = "SELECT feature1, feature2, feature3, feature4, feature5, feature6 FROM productfeatures " . "where item_code like '$code'";                                        
- $pfresults = mysqli_query($conn, $pfquery) or die(mysql_error());
- $pfrow = mysqli_fetch_array($pfresults, MYSQLI_ASSOC);
- extract($pfrow);
- echo $feature1;
- echo "</td><td style=\"padding-left: 20px;\">";
- echo $feature2;
- echo "</td></tr><tr><td>";
- echo $feature3;
- echo "</td><td style=\"padding-left: 20px;\">";
- echo $feature4;
- echo "</td></tr><tr><td>";
- echo $feature5;
- echo "</td><td style=\"padding-left: 20px;\">";
- echo $feature6;
- echo "</td></tr><tr>";
- echo "<form method=\"POST\" action=\"cart.php?action=add&icode=$item_code&iname=$itemname&iprice=$itemprice\">";
- echo "<td colspan=\"2\" style=\"font-family:verdana; font-size:150%;\">";
- echo " Quantity: <input type=\"text\" name=\"quantity\" size=\"2\">&nbsp;&nbsp; &nbsp;Price: " . $itemprice;
- echo "</td></tr><tr><td  colspan=\"2\"><input type=\"submit\" name=\"buynow\" value=\"Buy Now\" style=\"font-size:150%;\">";
- echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=\"submit\" name=\"addtocart\" value=\"Add To Cart\" style=\"font-size:150%;\"></td>";
- echo "</form>";
- echo "</tr></table></table>";
- echo "<p  style=\"font-size:140%;\">Description</p>";
- echo $itemdescription;
+    $code=$_REQUEST['itemcode'];
+    $query = "SELECT item_code, item_name, description, imagename, price FROM products " . "where item_code like '$code'";
+    $results = mysqli_query($conn, $query) or die(mysql_error());
+    $row = mysqli_fetch_array($results, MYSQLI_ASSOC);
+    extract($row);
+
+    $itemname=urlencode($item_name);
+    $itemprice=$price;
+    $itemdescription=$description;
+    $pfquery = "SELECT feature1, feature2, feature3, feature4, feature5, feature6 FROM productfeatures " . "where item_code like '$code'";                                        
+    $pfresults = mysqli_query($conn, $pfquery) or die(mysql_error());
+    $pfrow = mysqli_fetch_array($pfresults, MYSQLI_ASSOC);
+    extract($pfrow);
  ?>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        <?php include "cartstyle.css" ?>
+    </style>
+</head>
+<body>
+
+    <div class="item-details-container" style="margin-top: 200px;">
+        <div class="item-image">
+            <img class="product_img" src="img/<?php echo $imagename; ?>" alt="Image of product"></img>
+        </div>
+        <div class="item-info">
+            <h2>
+                <?php
+                    echo $item_name;
+                ?>
+            </h2>
+            <div class="description">
+                <p><b>Description:</b></p>
+                <p>
+                <?php
+                    echo $itemdescription;
+                ?>
+                </p>
+                
+            </div>
+            <div class="features">
+                <span class="feature">
+                    <?php
+                        echo $feature1;
+                    ?>
+                </span>
+                <span class="feature">
+                
+                    <?php
+                        echo $feature2;
+                    ?>
+                </span>
+                <span class="feature">
+                    
+                    <?php
+                        echo $feature3;
+                    ?>
+                </span>
+                <span class="feature">
+        
+                    <?php
+                        echo $feature4;
+                    ?>
+                </span>
+                <span class="feature">
+                    <?php
+                        echo $feature5;
+                    ?>
+                </span>
+                <span class="feature">
+                    <?php
+                        echo $feature6;
+                    ?>
+                </span>
+            </div>
+            <div class="add-to-cart">
+            <form method="POST" action="itemdetails.php?itemcode=<?php echo $item_code; ?>">
+                    <div class="quantityselector">
+                        <button onclick="dec()"><i class='bx bx-minus'></i></button>
+                        <input class="num" type="number" name="quantity" value="1">
+                        <button onclick="inc()"><i class='bx bx-plus'></i></button>
+                    </div>
+            </form>
+            <form method="POST" action="cart.php?action=add&icode=<?php echo $item_code; ?>&iname=<?php echo $itemname; ?>&iprice=<?php echo $itemprice; ?>">
+                    <input type="hidden" name="selectedQuantity" id="selectedQuantity" value="1"> 
+            
+                    <span class="price">
+                        <h2>Price: <?php echo $itemprice; ?></h2>
+                    </span>
+                
+                    <input type="submit" name="buynow" value="Buy Now" class="buy-now">
+                    <input type="submit" name="addtocart" value="Add To Cart" class="add-to-cart-button">
+                </form>
+            </div>
+            
+        </div>
+    </div>
+
+    <script>
+    function dec() {
+        let num = document.querySelector('#quantityInput');
+        if (parseInt(num.value) > 1) {
+            num.value = parseInt(num.value) - 1;
+            updateHiddenInputValue();
+        }
+    }
+
+    function inc() {
+        let num = document.querySelector('#quantityInput');
+        num.value = parseInt(num.value) + 1;
+        updateHiddenInputValue();
+
+    function updateHiddenInputValue() {
+        let selectedQuantity = document.querySelector('#selectedQuantity');
+        let quantityInput = document.querySelector('#quantityInput');
+        selectedQuantity.value = quantityInput.value;
+    }
+    }
+    </script>
+
+ 
+</body>
+</html>
