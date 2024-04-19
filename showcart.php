@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <?php
 if (!isset($totalamount)) {
     $totalamount = 0;
@@ -7,8 +9,8 @@ if (!session_id()) {
     session_start();
 }
     $servername = "localhost";
-    $username = "Joshua";
-    $password = "password"; 
+    $username = "root";
+    $password = ""; 
     $database = "shopping"; 
     
     $conn = new mysqli($servername, $username, $password, $database);
@@ -19,66 +21,99 @@ if (!session_id()) {
 $sessid = session_id();
 $query = "SELECT * FROM cart WHERE cart_sess = '$sessid'";
 $results = mysqli_query($conn, $query) or die(mysqli_error($conn));
-if (mysqli_num_rows($results) == 0) {
-    echo "<div style=\"width:200px; margin:auto;\">Your Cart is empty</div> ";
-} else {
+
+
+
 ?>
-    <table border="1" align="center" cellpadding="5">
-        <tr>
-            <td> Item Code</td>
-            <td>Quantity</td>
-            <td>Item Name</td>
-            <td>Price</td>
-            <td>Total Price</td>
-        </tr>
-        <?php
-        while ($row = mysqli_fetch_array($results, MYSQLI_ASSOC)) {
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+            <?php include "cartstyle.css" ?>
+    </style>
+</head>
+<body>
+    <div class="cart-container">
+        <?php if (mysqli_num_rows($results) == 0) { ?>
+            <div class="emptycart"><h2>Your Cart is Empty.</h2></div>
+        <?php }else { while ($row = mysqli_fetch_array($results, MYSQLI_ASSOC)) 
             extract($row);
-            echo "<tr><td>";
-            echo $cart_itemcode;
-            echo "</td>";
-            echo "<td><form method=\"POST\" action=\"cart.php?action=change&icode=$cart_itemcode\"><input type=\"text\" name=\"modified_quantity\" size=\"2\"value=\"$cart_quantity\">";
-            echo "</td><td>";
-            echo $cart_item_name;
-            echo "</td><td>";
-            echo $cart_price;
-            echo "</td><td>";
+            
             $totalquantity = $totalquantity + $cart_quantity;
             $totalprice = number_format($cart_price * $cart_quantity, 2);
             $totalamount = $totalamount + ($cart_price * $cart_quantity);
-            echo $totalprice;
-            echo "</td><td>";
-            echo "<input type=\"submit\" name=\"Submit\"  value=\"Change quantity\"></form></td>";
-            echo "<td>";
-            echo "<form method=\"POST\" action=\"cart.php?action=delete&icode=$cart_itemcode\">";
-            echo "<input type=\"submit\" name=\"Submit\" value=\"Delete Item\"></form></td></tr>";
-        }
-        echo "<tr><td>Total</td><td>$totalquantity</td><td></td><td></td><td>";
-        $totalamount = number_format($totalamount, 2);
-        echo $totalamount;
-        echo "</td></tr>";
-        echo "</table><br>";
-        echo "<div style=\"width:400px; margin:auto;\">You currently have " .
-            $totalquantity . " product(s) selected in your cart</div> ";
-        ?>
-    <table border="0" style="margin:auto;">
-        <tr>
-            <td style="padding: 10px;">
-                <form method="POST" action="cart.php?action=empty">
-                    <input type="submit" name="Submit" value="Empty Cart" style="font-family:verdana; font-size:150%;">
+            ?>
+        
+        <div class="cart-item">
+        <div><img class="product_img" src="img/<?php echo $imagename?>" alt="Image of product"></img> </div>
+            <div class="cart-item-info">
+                <h2><?php echo $cart_item_name; ?></h2>
+                <p><?php echo $cart_itemcode; ?></p>
+                <p><?php echo $cart_price; ?></p>
+                <form method="POST" action="cart.php?action=change&icode=$cart_itemcode">
+                    <input type="number" name="modified_quantity" size="2" value="<?php echo $cart_quantity; ?>">
+                    <input type="submit" name="Submit"  value="Update"></form>
+            </div>
+
+            <div class="cart-item-info">
+                <form method="POST" action="cart.php?action=delete&icode=XYZ123">
+                    <button type="submit" name="Submit" class="delete-button">
+                        <i class='bx bx-x-circle'></i>
+                    </button>
                 </form>
-            </td>
-            <td>
-                <form method="POST" action="checklogin.php">
-                    <input id="cartamount" name="cartamount" type="hidden" value="<?php echo
-                                                                                        $totalamount; ?>">
-                    <input type="submit" name="Submit" value="Checkout" style="font-family:verdana; font-size:150%;">
-                </form>
-            </td>
-        </tr>
-    </table>
-<?php
-}
-?>
+                <h2 class="price" style="transform: translate(40%, 150%);"><?php echo $totalprice; ?></h2>
+            </div>
+        </div>
+        <?php } ?>
+
+        <!--totalquantity, totalamount-->
+        <div class="cartinfo">
+            <p>You have <?php echo $totalquantity; ?> products in your cart.</p>
+            <h2>Total : <?php echo $totalamount; ?></h2>
+        
+            <button type="submit" name="Submit" class="submitemptycart" value="Empty Cart">Empty Cart</button>
+
+            <button type="submit" name="Submit" class="checkout" value="Checkout">Checkout</button>
+        </div>
+        
+        
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const plus = document.querySelector(".plus");
+            const minus = document.querySelector(".minus");
+            const quantity = document.querySelector(".num");
+
+            let currentQuantity = <?php echo $cart_quantity; ?>;
+
+            plus.addEventListener("click", () => {
+                currentQuantity++;
+                quantity.innerText = currentQuantity;
+                updateQuantity(currentQuantity);
+            });
+
+            minus.addEventListener("click", () => {
+                if (currentQuantity > 1) {
+                    currentQuantity--;
+                    quantity.innerText = currentQuantity;
+                    updateQuantity(currentQuantity);
+                }
+            });
+
+            function updateQuantity(quantity) {
+                const quantityInput = document.getElementById("quantity");
+                quantityInput.value = quantity;
+            }
+        });
+    </script>
+
 </body>
 </html>
+
+
