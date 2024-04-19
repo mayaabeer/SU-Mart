@@ -1,5 +1,6 @@
 <html>
 <head>
+    
 <script language="JavaScript" type="text/JavaScript">
 function updateUser(username) {
     var ajaxUser = document.getElementById("userinfo");
@@ -14,8 +15,8 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 $servername = "localhost";
-$username = "Joshua";
-$password = "password"; 
+$username = "root";
+$password = ""; 
 $database = "shopping"; 
             
 $conn = new mysqli($servername, $username, $password, $database);
@@ -39,10 +40,11 @@ if (mysqli_num_rows($result) == 1) {
 }
 else {
 ?>
-Invalid Email address and/or Password<br>
+<p class="error">Invalid Email address and/or Password<br>
 Not registered? <a href="validatesignup.php">Click here</a> to register.<br><br><br>
 Want to try again?<br>
 <a href="signin.php">Click here</a> to try login again.<br>
+</p>
 <?php
 }
 ?>
