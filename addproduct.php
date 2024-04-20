@@ -85,6 +85,10 @@
         $password = ""; 
         $dbname = "shopping";
         $conn = new mysqli($servername, $username, $password, $dbname);
+
+        if (isset($_SESSION['user_id'])) {
+            $session_id = $_SESSION['user_id'];
+        }
         
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
@@ -98,8 +102,8 @@
         $allowTypes = array('jpg','png');
         if(in_array($fileType, $allowTypes)){
             if(move_uploaded_file($_FILES["image"]["tmp_name"], $targetFilePath)){
-                $sql = "INSERT INTO products (item_code, item_name, brand_name, model_number, weight, dimension, description, category, quantity, price, imagename)
-                VALUES ('".$_POST["item_code"]."', '".$_POST["item_name"]."', '".$_POST["brand_name"]."', '".$_POST["model_number"]."', '".$_POST["weight"]."', '".$_POST["dimension"]."', '".$_POST["description"]."', '".$_POST["category"]."', ".$_POST["quantity"].", ".$_POST["price"].", '".$fileName."')";
+                $sql = "INSERT INTO products (item_code, item_name, brand_name, model_number, weight, dimension, description, category, quantity, price, imagename, user_id)
+                VALUES ('".$_POST["item_code"]."', '".$_POST["item_name"]."', '".$_POST["brand_name"]."', '".$_POST["model_number"]."', '".$_POST["weight"]."', '".$_POST["dimension"]."', '".$_POST["description"]."', '".$_POST["category"]."', ".$_POST["quantity"].", ".$_POST["price"].", '".$fileName."', $session_id)";
                 if ($conn->query($sql) === TRUE) {
                     $last_id = $conn->insert_id;
                     $sql_features = "INSERT INTO productfeatures (item_code, feature1, feature2, feature3, feature4, feature5, feature6)
@@ -123,3 +127,4 @@
     ?>
 </body>
 </html>
+
