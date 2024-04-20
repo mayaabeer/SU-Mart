@@ -57,7 +57,7 @@ extract($pfrow);
     </div>
     <div class="item-info">
         <h2><?php echo $item_name; ?></h2>
-
+        
         <h2><?php if ($session_id ==! null && $session_id == $user_id) {
             echo '<a href="#" onclick="editProduct()">Edit product</a>';
         }
@@ -92,32 +92,40 @@ extract($pfrow);
     </div>
 </div>
 
-<div id="editForm" style="display: none;">
-    <h2>Edit Product: <?php echo $item_name; ?></h2>
-    <form method="POST" action="update_product.php">
-        <input type="hidden" name="item_code" value="<?php echo $item_code; ?>">
-        <label for="item_name">Item Name:</label>
-        <input type="text" id="item_name" name="item_name" value="<?php echo $item_name; ?>"><br>
-        <label for="description">Description:</label>
-        <textarea id="description" name="description"><?php echo $description; ?></textarea><br>
-        <label for="price">Price:</label>
-        <input type="text" id="price" name="price" value="<?php echo $price; ?>"><br>
-        <label for="feature1">Feature 1:</label>
-        <input type="text" id="feature1" name="feature1" value="<?php echo $feature1; ?>"><br>
-        <label for="feature2">Feature 2:</label>
-        <input type="text" id="feature2" name="feature2" value="<?php echo $feature2; ?>"><br>
-        <label for="feature3">Feature 3:</label>
-        <input type="text" id="feature3" name="feature3" value="<?php echo $feature3; ?>"><br>
-        <label for="feature4">Feature 4:</label>
-        <input type="text" id="feature4" name="feature4" value="<?php echo $feature4; ?>"><br>
-        <label for="feature5">Feature 5:</label>
-        <input type="text" id="feature5" name="feature5" value="<?php echo $feature5; ?>"><br>
-        <label for="feature6">Feature 6:</label>
-        <input type="text" id="feature6" name="feature6" value="<?php echo $feature6; ?>"><br>
+<div id="editForm" style="display: none; margin-top: 200px;">
+    <div class="item-details-container">
+        <div class="item-image">
+            <img class="product_img" src="img/<?php echo $imagename; ?>" alt="Image of product">
+        </div>
+        <div class="item-info">
+            <h2>Edit Product: <?php echo $item_name; ?></h2>
+            <form method="POST" action="update_product.php">
+                <input type="hidden" name="item_code" value="<?php echo $item_code; ?>">
+                <label for="item_name">Item Name:</label>
+                <input type="text" id="item_name" name="item_name" value="<?php echo $item_name; ?>"><br>
+                <label for="description">Description:</label>
+                <textarea id="description" name="description"><?php echo $description; ?></textarea><br>
+                <label for="price">Price:</label>
+                <input type="text" id="price" name="price" value="<?php echo $price; ?>"><br>
+                <label for="feature1">Feature 1:</label>
+                <input type="text" id="feature1" name="feature1" value="<?php echo $feature1; ?>"><br>
+                <label for="feature2">Feature 2:</label>
+                <input type="text" id="feature2" name="feature2" value="<?php echo $feature2; ?>"><br>
+                <label for="feature3">Feature 3:</label>
+                <input type="text" id="feature3" name="feature3" value="<?php echo $feature3; ?>"><br>
+                <label for="feature4">Feature 4:</label>
+                <input type="text" id="feature4" name="feature4" value="<?php echo $feature4; ?>"><br>
+                <label for="feature5">Feature 5:</label>
+                <input type="text" id="feature5" name="feature5" value="<?php echo $feature5; ?>"><br>
+                <label for="feature6">Feature 6:</label>
+                <input type="text" id="feature6" name="feature6" value="<?php echo $feature6; ?>"><br>
 
-        <input type="submit" name="update_product" value="Update Product">
-    </form>
+                <input type="submit" name="update_product" value="Update Product">
+            </form>
+        </div>
+    </div>
 </div>
+
 
 
 
@@ -149,7 +157,9 @@ extract($pfrow);
     function editProduct() {
         document.getElementById("editForm").style.display = "block";
         document.querySelector(".item-info").style.display = "none";
+        document.querySelector(".item-image").style.display = "none";
     }
 </script>
 </body>
 </html>
+
