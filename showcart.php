@@ -50,11 +50,11 @@
                             <p><?php echo $cart_price; ?></p>
                             <form method="POST" action="cart.php?action=change&icode=<?php echo $cart_itemcode; ?>">
                                 <div class="quantityselector">
-                                    <button type="button" onclick="dec<?php echo $cart_itemcode; ?>()"><i class='bx bx-minus'></i></button>
+                                    <button type="button" onclick="dec<?php echo $cart_itemcode; ?>(); document.getElementById('update-<?php echo $cart_itemcode; ?>').click()"><i class='bx bx-minus'></i></button>
                                     <input type="number" name="modified_quantity" id="quantityInput<?php echo $cart_itemcode; ?>" size="2" value="<?php echo $cart_quantity; ?>">
-                                    <button type="button" onclick="inc<?php echo $cart_itemcode; ?>()"><i class='bx bx-plus'></i></button>
+                                    <button type="button" onclick="inc<?php echo $cart_itemcode; ?>(); document.getElementById('update-<?php echo $cart_itemcode; ?>').click()"><i class='bx bx-plus'></i></button>
                                 </div>
-                                <input type="submit" name="Submit" value="Update">
+                                <input type="submit" id="update-<?php echo $cart_itemcode; ?>" name="Submit" value="Update">
                             </form>
                         </div>
                         <div class="cart-item-info-right">
