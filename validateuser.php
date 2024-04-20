@@ -38,12 +38,13 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$query = "SELECT email_address, password, complete_name, type FROM customers WHERE email_address like '" . $_POST['emailaddress'] . "' " . "AND password like (PASSWORD('" . $_POST['password'] . "'))";
+$query = "SELECT user_id, email_address, password, complete_name, type FROM customers WHERE email_address like '" . $_POST['emailaddress'] . "' " . "AND password like (PASSWORD('" . $_POST['password'] . "'))";
 $result = mysqli_query($conn, $query) or die(mysql_error());
 if (mysqli_num_rows($result) == 1) {
     while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
         extract($row);
         echo "Welcome " . $complete_name . " to SUMart <br>";
+        $_SESSION['user_id'] = $user_id;
         $_SESSION['emailaddress'] = $_POST['emailaddress'];
         $_SESSION['password'] = $_POST['password'];
         $_SESSION['complete_name'] = $complete_name;
