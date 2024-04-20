@@ -13,37 +13,31 @@
 <body>
     <div class="cart-container">
         <?php 
-
             $totalamount = 0;
             $totalquantity = 0;
-
             $conn = new mysqli($servername, $username, $password, $database);
-
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
-
             $sessid = session_id();
             $query = "SELECT cart.*, products.imagename FROM cart JOIN products ON cart.cart_itemcode = products.item_code WHERE cart.cart_sess = '$sessid'";
             $results = mysqli_query($conn, $query);
-
             if (!$results) {
                 die("Error executing query: " . mysqli_error($conn));
             }
-
             
-        if (mysqli_num_rows($results) == 0) { 
+            if (mysqli_num_rows($results) == 0) { 
         ?>
             <div class="emptycart">
                 <h2>Your Cart is Empty.</h2>
             </div>
         <?php 
-        } else { 
-            while ($row = mysqli_fetch_array($results, MYSQLI_ASSOC)) {
-                extract($row);
-                $totalquantity += $cart_quantity;
-                $totalprice = number_format($cart_price * $cart_quantity, 2);
-                $totalamount += $cart_price * $cart_quantity;
+            } else { 
+                while ($row = mysqli_fetch_array($results, MYSQLI_ASSOC)) {
+                    extract($row);
+                    $totalquantity += $cart_quantity;
+                    $totalprice = number_format($cart_price * $cart_quantity, 2);
+                    $totalamount += $cart_price * $cart_quantity;
         ?>
                 <div class="cart-item">
                     <div>
@@ -55,8 +49,12 @@
                             <p><?php echo $cart_itemcode; ?></p>
                             <p><?php echo $cart_price; ?></p>
                             <form method="POST" action="cart.php?action=change&icode=<?php echo $cart_itemcode; ?>">
-                                <input type="number" name="modified_quantity" size="2" value="<?php echo $cart_quantity; ?>">
-                                <input type="submit" name="Submit"  value="Update">
+                                <div class="quantityselector">
+                                    <button type="button" onclick="dec<?php echo $cart_itemcode; ?>()"><i class='bx bx-minus'></i></button>
+                                    <input type="number" name="modified_quantity" id="quantityInput<?php echo $cart_itemcode; ?>" size="2" value="<?php echo $cart_quantity; ?>">
+                                    <button type="button" onclick="inc<?php echo $cart_itemcode; ?>()"><i class='bx bx-plus'></i></button>
+                                </div>
+                                <input type="submit" name="Submit" value="Update">
                             </form>
                         </div>
                         <div class="cart-item-info-right">
@@ -69,9 +67,22 @@
                         </div>
                     </div>
                 </div>
+                <script>
+                    function dec<?php echo $cart_itemcode; ?>() {
+                        let num = document.querySelector('#quantityInput<?php echo $cart_itemcode; ?>');
+                        if (parseInt(num.value) > 1) {
+                            num.value = parseInt(num.value) - 1;
+                        }
+                    }
+
+                    function inc<?php echo $cart_itemcode; ?>() {
+                        let num = document.querySelector('#quantityInput<?php echo $cart_itemcode; ?>');
+                        num.value = parseInt(num.value) + 1;
+                    }
+                </script>
         <?php 
+                }
             }
-        }
         ?>
 
         <!--totalquantity, totalamount-->
@@ -95,3 +106,4 @@
     </div>
 </body>
 </html>
+
