@@ -1,32 +1,43 @@
-<!DOCTYPE html>
-
 <?php
+
+if (session_status() == PHP_SESSION_NONE) {
+session_start();
+}
+
 include('menu.php');
 $servername = "localhost";
 $username = "root";
 $password = ""; 
 $database = "shopping"; 
     
-    $conn = new mysqli($servername, $username, $password, $database);
+$conn = new mysqli($servername, $username, $password, $database);
     
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-    $code=$_REQUEST['itemcode'];
-    $query = "SELECT item_code, item_name, description, imagename, price FROM products " . "where item_code like '$code'";
-    $results = mysqli_query($conn, $query) or die(mysql_error());
-    $row = mysqli_fetch_array($results, MYSQLI_ASSOC);
-    extract($row);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-    $itemname=urlencode($item_name);
-    $itemprice=$price;
-    $itemdescription=$description;
-    $pfquery = "SELECT feature1, feature2, feature3, feature4, feature5, feature6 FROM productfeatures " . "where item_code like '$code'";                                        
-    $pfresults = mysqli_query($conn, $pfquery) or die(mysql_error());
-    $pfrow = mysqli_fetch_array($pfresults, MYSQLI_ASSOC);
-    extract($pfrow);
- ?>
+$session_id = null;
 
+if (isset($_SESSION['user_id'])) {
+    $session_id = $_SESSION['user_id'];
+}
+
+$code=$_REQUEST['itemcode'];
+$query = "SELECT item_code, item_name, description, imagename, price, user_id FROM products WHERE item_code = '$code'";
+$results = mysqli_query($conn, $query) or die(mysql_error());
+$row = mysqli_fetch_array($results, MYSQLI_ASSOC);
+extract($row);
+
+$itemname=urlencode($item_name);
+$itemprice=$price;
+$itemdescription=$description;
+$pfquery = "SELECT feature1, feature2, feature3, feature4, feature5, feature6 FROM productfeatures WHERE item_code = '$code'";                                        
+$pfresults = mysqli_query($conn, $pfquery) or die(mysql_error());
+$pfrow = mysqli_fetch_array($pfresults, MYSQLI_ASSOC);
+extract($pfrow);
+?>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -40,74 +51,47 @@ $database = "shopping";
 </head>
 <body>
 
-    <div class="item-details-container" style="margin-top: 200px;">
-        <div class="item-image">
-            <img class="product_img" src="img/<?php echo $imagename; ?>" alt="Image of product"></img>
-        </div>
-        <div class="item-info">
-            <h2>
-                <?php
-                    echo $item_name;
-                ?>
-            </h2>
-            <div class="description">
-                <p><b>Description:</b></p>
-                <p>
-                <?php
-                    echo $itemdescription;
-                ?>
-                </p>
-                
-            </div>
-            <div class="features">
-                <span class="feature">
-                    <?php
-                        echo $feature1;
-                    ?>
-                </span>
-                <span class="feature">
-                
-                    <?php
-                        echo $feature2;
-                    ?>
-                </span>
-                <span class="feature">
-                    
-                    <?php
-                        echo $feature3;
-                    ?>
-                </span>
-                <span class="feature">
+<div class="item-details-container" style="margin-top: 200px;">
+    <div class="item-image">
+        <img class="product_img" src="img/<?php echo $imagename; ?>" alt="Image of product">
+    </div>
+    <div class="item-info">
+        <h2><?php echo $item_name; ?></h2>
+
+        //This is sample code, replace it with something else
         
-                    <?php
-                        echo $feature4;
-                    ?>
-                </span>
-                <span class="feature">
-                    <?php
-                        echo $feature5;
-                    ?>
-                </span>
-                <span class="feature">
-                    <?php
-                        echo $feature6;
-                    ?>
-                </span>
-            </div>
-            <div class="add-to-cart">
-    <form id="addToCartForm" method="POST" action="cart.php?action=add&icode=<?php echo $item_code; ?>&iname=<?php echo $itemname; ?>&iprice=<?php echo $itemprice; ?>">
-        <div class="quantityselector">
-            <button type="button" onclick="dec()"><i class='bx bx-minus'></i></button>
-            <input class="num" type="number" id="quantityInput" name="quantity" value="1">
-            <button type="button" onclick="inc()"><i class='bx bx-plus'></i></button>
+        <h2><?php if ($session_id ==! null && $session_id == $user_id) {
+            echo "You own this product";
+        }
+        ?></h2>
+
+
+        <div class="description">
+            <p><b>Description:</b></p>
+            <p><?php echo $itemdescription; ?></p>
         </div>
-        <input type="hidden" name="selectedQuantity" id="selectedQuantity" value="1">
-        <span class="price">
-            <h2>Price: <?php echo $itemprice; ?></h2>
-        </span>
-        <input type="submit" name="buynow" value="Buy Now" class="buy-now">
-        <input type="submit" name="addtocart" value="Add To Cart" class="add-to-cart-button" onclick="updateQuantity()">
-    </form>
+        <div class="features">
+            <span class="feature"><?php echo $feature1; ?></span>
+            <span class="feature"><?php echo $feature2; ?></span>
+            <span class="feature"><?php echo $feature3; ?></span>
+            <span class="feature"><?php echo $feature4; ?></span>
+            <span class="feature"><?php echo $feature5; ?></span>
+            <span class="feature"><?php echo $feature6; ?></span>
+        </div>
+        <div class="add-to-cart">
+            <form id="addToCartForm" method="POST" action="cart.php?action=add&icode=<?php echo $item_code; ?>&iname=<?php echo $itemname; ?>&iprice=<?php echo $itemprice; ?>">
+                <div class="quantityselector">
+                    <button type="button" onclick="dec()"><i class='bx bx-minus'></i></button>
+                    <input class="num" type="number" id="quantityInput" name="quantity" value="1">
+                    <button type="button" onclick="inc()"><i class='bx bx-plus'></i></button>
+                </div>
+                <input type="hidden" name="selectedQuantity" id="selectedQuantity" value="1">
+                <span class="price"><h2>Price: <?php echo $itemprice; ?></h2></span>
+                <input type="submit" name="buynow" value="Buy Now" class="buy-now">
+                <input type="submit" name="addtocart" value="Add To Cart" class="add-to-cart-button" onclick="updateQuantity()">
+            </form>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -134,6 +118,6 @@ $database = "shopping";
     function updateQuantity() {
         updateHiddenInputValue();
     }
-    </script>
+</script>
 </body>
 </html>
