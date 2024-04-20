@@ -95,29 +95,22 @@ $database = "shopping";
                 </span>
             </div>
             <div class="add-to-cart">
-            <form method="POST" action="itemdetails.php?itemcode=<?php echo $item_code; ?>">
-                    <div class="quantityselector">
-                        <button onclick="dec()"><i class='bx bx-minus'></i></button>
-                        <input class="num" type="number" name="quantity" value="1">
-                        <button onclick="inc()"><i class='bx bx-plus'></i></button>
-                    </div>
-            </form>
-            <form method="POST" action="cart.php?action=add&icode=<?php echo $item_code; ?>&iname=<?php echo $itemname; ?>&iprice=<?php echo $itemprice; ?>">
-                    <input type="hidden" name="selectedQuantity" id="selectedQuantity" value="1"> 
-            
-                    <span class="price">
-                        <h2>Price: <?php echo $itemprice; ?></h2>
-                    </span>
-                
-                    <input type="submit" name="buynow" value="Buy Now" class="buy-now">
-                    <input type="submit" name="addtocart" value="Add To Cart" class="add-to-cart-button">
-                </form>
-            </div>
-            
+    <form id="addToCartForm" method="POST" action="cart.php?action=add&icode=<?php echo $item_code; ?>&iname=<?php echo $itemname; ?>&iprice=<?php echo $itemprice; ?>">
+        <div class="quantityselector">
+            <button type="button" onclick="dec()"><i class='bx bx-minus'></i></button>
+            <input class="num" type="number" id="quantityInput" name="quantity" value="1">
+            <button type="button" onclick="inc()"><i class='bx bx-plus'></i></button>
         </div>
-    </div>
+        <input type="hidden" name="selectedQuantity" id="selectedQuantity" value="1">
+        <span class="price">
+            <h2>Price: <?php echo $itemprice; ?></h2>
+        </span>
+        <input type="submit" name="buynow" value="Buy Now" class="buy-now">
+        <input type="submit" name="addtocart" value="Add To Cart" class="add-to-cart-button" onclick="updateQuantity()">
+    </form>
+</div>
 
-    <script>
+<script>
     function dec() {
         let num = document.querySelector('#quantityInput');
         if (parseInt(num.value) > 1) {
@@ -130,15 +123,17 @@ $database = "shopping";
         let num = document.querySelector('#quantityInput');
         num.value = parseInt(num.value) + 1;
         updateHiddenInputValue();
+    }
 
     function updateHiddenInputValue() {
         let selectedQuantity = document.querySelector('#selectedQuantity');
         let quantityInput = document.querySelector('#quantityInput');
         selectedQuantity.value = quantityInput.value;
     }
+
+    function updateQuantity() {
+        updateHiddenInputValue();
     }
     </script>
-
- 
 </body>
 </html>
