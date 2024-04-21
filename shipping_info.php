@@ -1,5 +1,6 @@
+
 <?php
-include('menu.php');
+// include('menu.php');
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -35,10 +36,27 @@ if ((isset($_SESSION['emailaddress']) && $_SESSION['emailaddress'] != "") || (is
     $row = mysqli_fetch_array($results, MYSQLI_ASSOC);
     extract($row);
 ?>
-    <form action="purchase.php" method="post">
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="media/css/boxicons.min.css" rel='stylesheet'>
+    <style>
+        <?php include "styles.css" ?>
+    </style>
+</head>
+<body>
+    <div class="container_shipping">
+    <form action="payment_options.php" method="post" >
         <table border="0" cellspacing="1" cellpadding="3">
             <tr>
-                <td colspan="2" align="center">Your information available with us:</td>
+                <td colspan="2" align="center"><h3>Your information available with us:</h3></td>
             </tr>
             <tr>
                 <td>Email Address:</td>
@@ -77,7 +95,7 @@ if ((isset($_SESSION['emailaddress']) && $_SESSION['emailaddress'] != "") || (is
                 <td><input size="30" type="text" name="phone_no" value="<?php echo $cellphone_no; ?>" readonly></td>
             </tr>
             <tr>
-                <td colspan="2" align="center">Please update shipping information if different from the shown below:</td>
+                <td colspan="2" align="center"><h3>You can edit shipping information below:</h3></td>
             </tr>
             <tr>
                 <td>Address to deliver at:</td>
@@ -104,11 +122,12 @@ if ((isset($_SESSION['emailaddress']) && $_SESSION['emailaddress'] != "") || (is
                 <td><input type="text" size="20" name="shipping_zipcode" value="<?php echo $zipcode; ?>"></td>
             </tr>
             <tr>
-                <td><input type="submit" name="submit" value="Supply Payment Information"></td>
-                <td><input type="reset" value="Cancel"></td>
+                <td><input type="submit" name="submit" value="Confirm" class="input"></td>
+  
             </tr>
         </table>
     </form>
+    </div>
 <?php
 }
 ?>

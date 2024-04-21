@@ -47,14 +47,14 @@
                         <div class="cart-item-info">
                             <h2><?php echo $cart_item_name; ?></h2>
                             <p><?php echo $cart_itemcode; ?></p>
-                            <p><?php echo $cart_price; ?></p>
+                            <p><?php echo number_format((float)str_replace(',', '', $totalprice), 0, ',', '.'); ?></p>
                             <form method="POST" action="cart.php?action=change&icode=<?php echo $cart_itemcode; ?>">
                                 <div class="quantityselector">
                                     <button type="button" onclick="dec<?php echo $cart_itemcode; ?>(); document.getElementById('update-<?php echo $cart_itemcode; ?>').click()"><i class='bx bx-minus'></i></button>
                                     <input type="number" name="modified_quantity" id="quantityInput<?php echo $cart_itemcode; ?>" size="2" value="<?php echo $cart_quantity; ?>">
                                     <button type="button" onclick="inc<?php echo $cart_itemcode; ?>(); document.getElementById('update-<?php echo $cart_itemcode; ?>').click()"><i class='bx bx-plus'></i></button>
                                 </div>
-                                <input type="submit" id="update-<?php echo $cart_itemcode; ?>" name="Submit" value="Update">
+                                <input type="submit" id="update-<?php echo $cart_itemcode; ?>" name="Submit" value="Update" hidden>
                             </form>
                         </div>
                         <div class="cart-item-info-right">
@@ -63,7 +63,7 @@
                                     <i class='bx bx-x-circle'></i>
                                 </button>
                             </form>
-                            <h2 class="price" style="transform: translate(40%, 150%);"><?php echo $totalprice; ?></h2>
+                            <h2 class="pricecart" style="transform: translate(40%, 150%);">Rp <?php echo $totalprice; ?></h2>
                         </div>
                     </div>
                 </div>
@@ -88,9 +88,8 @@
         <!--totalquantity, totalamount-->
         <div class="cartinfo">
             <p>You have <?php echo $totalquantity; ?> products in your cart.</p>
-            <h2>Total : <?php echo number_format($totalamount, 2); ?></h2>
+            <h2>Total : Rp <?php echo number_format($totalamount, 2); ?></h2>
 
-            <div class="carinfo-buttons">
             <!-- <button type="submit" name="Submit" class="submitemptycart" value="Empty Cart">Empty Cart</button> -->
             <form  method="POST" action="cart.php?action=empty">
                     <input class="submitemptycart" type="submit" name="Submit" value="Empty Cart" >
@@ -98,12 +97,12 @@
 
             <!-- <button type="submit" name="Submit" class="checkout" value="Checkout">Checkout</button> -->
             <form method="POST" action="checklogin.php">
+                <div class="container_buttons">
                 <input id="cartamount" name="cartamount" type="hidden" value="<?php echo $totalamount; ?>">
                 <input class="checkout" type="submit" name="Submit" value="Checkout" >
+                </div>
             </form>
-            </div>
         </div>
     </div>
 </body>
 </html>
-

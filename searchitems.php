@@ -53,7 +53,7 @@ $results = mysqli_query($conn, $query) or die(mysql_error());
                     <div class="card_img">
                         <img class="product_img" src="img/<?php echo $row['imagename']; ?>" alt="Image of product">
                     </div>
-                    <h3><b><?php echo $row['price']; ?></b></h3>
+                    <h3><b><?php  echo "Rp" . number_format((float)str_replace(',', '',  $row['price']), 0, ',', '.'); ?></b></h3>
                     <p><?php echo $row['item_name']; ?></p>
                 </a>
             <?php } ?>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Options</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container_payment">
+        <h2>Payment Options</h2>
+        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+            <input type="radio" id="credit_card" name="payment_option" value="credit_card">
+            <label for="credit_card">Credit Card</label><br>
+
+            <input type="radio" id="qr_code" name="payment_option" value="qr_code">
+            <label for="qr_code">QR Code</label><br>
+
+            <input type="radio" id="cash" name="payment_option" value="cash">
+            <label for="cash">Cash (Pickup Only)</label><br><br>
+
+            <input type="submit" name="payment_submit" value="Proceed" class="input">
+        </form>
+    </div>
+</body>
+
+</html>

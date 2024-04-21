@@ -61,7 +61,7 @@ $count = 0;
         <a href=itemdetails.php?itemcode=<?php echo $item_code; ?>>
             <div class="itemcard">
                 <div class="card_img"><img class="product_img" src="img/<?php echo $imagename?>" alt="Image of product"></img></div>
-                <h3><b><?php echo $price ?></b></h3>
+                <h3><b>Rp <?php echo number_format((float)str_replace(',', '', $price), 0, ',', '.') ?></b></h3>
                 <p><?php echo $item_name ?></p>
             </div>
         </a>

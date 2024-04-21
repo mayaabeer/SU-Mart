@@ -29,12 +29,12 @@
                  </div>
             </div>
             <div class="header-right">
-                <div class="favorite-icon">
+                <!-- <div class="favorite-icon">
                     <a href="favorite.php">
                         <i class='bx bx-heart'></i>
                         <script src="node_modules/boxicons/dist/boxicons.js"></script>
                     </a>
-                </div>
+                </div> -->
                 <div class="cart-icon">
                 <a href="cart.php">
                     <i class='bx bx-cart'></i>

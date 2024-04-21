@@ -58,13 +58,11 @@ extract($pfrow);
     <div class="item-info">
         <h2><?php echo $item_name; ?></h2>
         
-        <h2><?php if ($session_id !== null && $session_id == $user_id) {
-    echo '<a href="#" onclick="editProduct()">Edit product</a>';
-    echo '&nbsp;&nbsp;';
-    echo '<a href="delete_product.php?itemcode=' . $item_code . '" onclick="return confirm(\'Are you sure you want to delete this product?\')">Delete product</a>';
+        <p><?php if ($session_id !== null && $session_id == $user_id) {
+    echo '<a class="link" href="#" onclick="editProduct()">Edit product</a><br>';
+    echo '<a class="link" style="color: red;" href="delete_product.php?itemcode=' . $item_code . '" onclick="return confirm(\'Are you sure you want to delete this product?\')">Delete product</a>';
 }
-?></h2>
-
+?></p>
 
 
         <div class="description">
@@ -83,11 +81,11 @@ extract($pfrow);
             <form id="addToCartForm" method="POST" action="cart.php?action=add&icode=<?php echo $item_code; ?>&iname=<?php echo $itemname; ?>&iprice=<?php echo $itemprice; ?>">
                 <div class="quantityselector">
                     <button type="button" onclick="dec()"><i class='bx bx-minus'></i></button>
-                    <input class="num" type="number" id="quantityInput" name="quantity" value="1">
+                    <input class="num" type="number" id="quantityInput" name="quantity" value="1"><br>
                     <button type="button" onclick="inc()"><i class='bx bx-plus'></i></button>
                 </div>
-                <input type="hidden" name="selectedQuantity" id="selectedQuantity" value="1">
-                <span class="price"><h2>Price: <?php echo number_format((float)str_replace(',', '', $itemprice), 0, ',', '.');; ?></h2></span>
+                <input type="hidden" name="selectedQuantity" id="selectedQuantity" value="1"><br>
+                <span class="price"><h2>Rp<?php echo number_format((float)str_replace(',', '', $itemprice), 0, ',', '.');; ?></h2></span>
                 <input type="submit" name="buynow" value="Buy Now" class="buy-now">
                 <input type="submit" name="addtocart" value="Add To Cart" class="add-to-cart-button" onclick="updateQuantity()">
             </form>
@@ -95,41 +93,67 @@ extract($pfrow);
     </div>
 </div>
 
-<div id="editForm" style="display: none; margin-top: 200px;">
+<div id="editForm" style="display: none;">
     <div class="item-details-container">
         <div class="item-image">
             <img class="product_img" src="img/<?php echo $imagename; ?>" alt="Image of product">
         </div>
         <div class="item-info">
             <h2>Edit Product: <?php echo $item_name; ?></h2>
-            <form method="POST" action="update_product.php">
-                <input type="hidden" name="item_code" value="<?php echo $item_code; ?>">
-                <label for="item_name">Item Name:</label>
-                <input type="text" id="item_name" name="item_name" value="<?php echo $item_name; ?>"><br>
-                <label for="description">Description:</label>
-                <textarea id="description" name="description"><?php echo $description; ?></textarea><br>
-                <label for="price">Price:</label>
-                <input type="text" id="price" name="price" value="<?php echo $price; ?>"><br>
-                <label for="feature1">Feature 1:</label>
-                <input type="text" id="feature1" name="feature1" value="<?php echo $feature1; ?>"><br>
-                <label for="feature2">Feature 2:</label>
-                <input type="text" id="feature2" name="feature2" value="<?php echo $feature2; ?>"><br>
-                <label for="feature3">Feature 3:</label>
-                <input type="text" id="feature3" name="feature3" value="<?php echo $feature3; ?>"><br>
-                <label for="feature4">Feature 4:</label>
-                <input type="text" id="feature4" name="feature4" value="<?php echo $feature4; ?>"><br>
-                <label for="feature5">Feature 5:</label>
-                <input type="text" id="feature5" name="feature5" value="<?php echo $feature5; ?>"><br>
-                <label for="feature6">Feature 6:</label>
-                <input type="text" id="feature6" name="feature6" value="<?php echo $feature6; ?>"><br>
+            <form class="update-form" method="POST" action="update_product.php">
+            <input type="hidden" name="item_code" value="<?php echo $item_code; ?>">
 
-                <input type="submit" name="update_product" value="Update Product">
-            </form>
+            <div class="form-group">
+                <label for="item_name">Item Name:</label>
+                <input class="text" type="text" id="item_name" name="item_name" value="<?php echo $item_name; ?>">
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea class="text" id="description" name="description"><?php echo $description; ?></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="price">Price:</label>
+                <input class="text" type="text" id="price" name="price" value="<?php echo $price; ?>">
+            </div>
+
+            <div class="form-group">
+                <label for="feature1">Feature 1:</label>
+                <input class="text" type="text" id="feature1" name="feature1" value="<?php echo $feature1; ?>">
+            </div>
+
+            <div class="form-group">
+                <label for="feature2">Feature 2:</label>
+                <input class="text" type="text" id="feature2" name="feature2" value="<?php echo $feature2; ?>">
+            </div>
+
+            <div class="form-group">
+                <label for="feature3">Feature 3:</label>
+                <input class="text" type="text" id="feature3" name="feature3" value="<?php echo $feature3; ?>">
+            </div>
+
+            <div class="form-group">
+                <label for="feature4">Feature 4:</label>
+                <input class="text" type="text" id="feature4" name="feature4" value="<?php echo $feature4; ?>">
+            </div>
+
+            <div class="form-group">
+                <label for="feature5">Feature 5:</label>
+                <input class="text" type="text" id="feature5" name="feature5" value="<?php echo $feature5; ?>">
+            </div>
+
+            <div class="form-group">
+                <label for="feature6">Feature 6:</label>
+                <input class="text" type="text" id="feature6" name="feature6" value="<?php echo $feature6; ?>">
+            </div>
+
+            <button type="submit" name="update_product" class="input">Update Product</button>
+        </form>
+
         </div>
     </div>
 </div>
-
-
 
 
 <script>

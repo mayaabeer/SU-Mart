@@ -109,9 +109,9 @@
                     $sql_features = "INSERT INTO productfeatures (item_code, feature1, feature2, feature3, feature4, feature5, feature6)
                     VALUES ('".$_POST["item_code"]."', '".$_POST["feature1"]."', '".$_POST["feature2"]."', '".$_POST["feature3"]."', '".$_POST["feature4"]."', '".$_POST["feature5"]."', '".$_POST["feature6"]."')";
                     if ($conn->query($sql_features) === TRUE) {
-                        echo "Product added successfully.";
+                        echo "<p style='align: center;'>Product added successfully.</p>";
                     } else {
-                        echo "Error: " . $sql_features . "<br>" . $conn->error;
+                        echo "<p style='align: center;'>Error: " . $sql_features . "</p><br>" . $conn->error;
                     }
                 } else {
                     echo "Error: " . $sql . "<br>" . $conn->error;
@@ -120,11 +120,10 @@
                 echo "Error uploading file.";
             }
         } else{
-            echo "Only JPG and PNG files are allowed.";
+            echo "<p style='align: center;'>Only JPG and PNG files are allowed.</p>";
         }
         $conn->close();
     }
     ?>
 </body>
 </html>
-
