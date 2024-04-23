@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['pickup_submit'])) {
 </head>
 
 <body>
-    <div class="container">
+    <div class="container_signin">
         <h2>Pickup Options</h2>
         <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <label for="pickup_location">Select pickup location:</label><br>
