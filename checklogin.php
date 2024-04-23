@@ -6,9 +6,9 @@ session_start();
 include('menu.php');
 
 $servername = "localhost";
-$username = "root";
-$password = ""; 
-$database = "shopping"; 
+$username = "mayq2814_maya";
+$password = "sTcycAU8KDSMcXJ"; 
+$database = "mayq2814_shopping"; 
     
 $conn = new mysqli($servername, $username, $password, $database);
     
