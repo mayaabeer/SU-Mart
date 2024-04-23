@@ -81,9 +81,9 @@
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $servername = "localhost";
-        $username = "root"; 
-        $password = ""; 
-        $dbname = "shopping";
+        $username = "mayq2814_maya";
+        $password = "sTcycAU8KDSMcXJ"; 
+        $database = "mayq2814_shopping"; 
         $conn = new mysqli($servername, $username, $password, $dbname);
 
         if (isset($_SESSION['user_id'])) {
