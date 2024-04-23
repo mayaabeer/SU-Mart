@@ -54,7 +54,7 @@ if (mysqli_num_rows($result) == 1) {
 }
 else {
 ?>
-<div class="container">
+<div class="containerr" style="margin-top:200px; text-align: center;">
 <p class="error">Invalid Email address and/or Password<br>
 Don't have an account? <a href="validatesignup.php" class="link">Click here</a> to register.<br><br><br>
 Want to try again?<br>
